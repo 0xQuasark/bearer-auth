@@ -18,12 +18,16 @@ const userSchema = (sequelize, DataTypes) => {
     let hashedPass = bcrypt.hash(user.password, 10);
     user.password = hashedPass;
   });
-
+  
   // Basic AUTH: Validating strings (username, password) 
   model.authenticateBasic = async function (username, password) {
-    const user = await this.findOne({ username })
+    // console.log('users.js: username & password: ', username, password);
+    const user = await this.findOne({ where: {username} })
+    if (!user) {throw new Error('No user found')}
+    // console.log('users.js: user: ', user)
     const valid = await bcrypt.compare(password, user.password)
-    if (valid) { return user; }
+    if (valid) { console.log('value user'); return user; }
+    console.log('eeek');
     throw new Error('Invalid User');
   }
 
