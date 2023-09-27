@@ -11,13 +11,13 @@ async function handleSignup(req, res, next) {
     };
     res.status(201).json(output);
   } catch (e) {
-    // console.error(e);
+    console.error(e);
     next(e);
   }
 }
 
 async function handleSignin(req, res, next) {
-  // console.log('handlers.js: ', req.user)
+  console.log('HANDLE SIGNIN ROUTE, req.user:', req.user);
   try {
     const user = {
       user: req.user,
@@ -25,7 +25,7 @@ async function handleSignin(req, res, next) {
     };
     res.status(200).json(user);
   } catch (e) {
-    // console.error(e);
+    console.error(e);
     next(e);
   }
 }
